@@ -11,7 +11,7 @@
 
 </head>
 
-<body>
+<body onload="hola()">
     <div class="container-fluid">
         <header>
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -40,14 +40,23 @@
 
         <br>
 
-        <div class="btn-group">
-          <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> Categorias </button>
-          <ul class="dropdown-menu"> </ul>
-        </div>    
-        <br>
-        <br>
-
-        <div class="container" id="card_product"> </div>
+        <main class="container-fluid">
+          <section>
+            <div class="btn-group">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> Categorias </button>
+              <ul class="dropdown-menu" id="dropdown-categories"> 
+                
+              </ul>
+            </div>
+          </section>    
+                
+          <br>
+          <br>
+          
+          <section>
+            <div class="container" id="card_product"> </div>
+          </section>
+        </main>
 
 
 
@@ -56,10 +65,9 @@
 
 
 
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"> </script>
     <script src="./public/js/index.js"> </script>
+    <script src="./public/js/categories.js"> </script>
 </body>
 
 </html>

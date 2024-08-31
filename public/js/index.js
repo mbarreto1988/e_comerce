@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if(category){
                 url = `${url}/category/${encodeURIComponent(category)}`;
             }
-
             const response = await fetch(url)
             if(!response.ok){
                 throw new Error('Error en la respuesta de la api')
@@ -30,8 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 card_product.appendChild(productDiv)
             });
-
-
         } catch (error) {
             console.error('Error al obtener los productos', error)
         }
