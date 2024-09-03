@@ -39,13 +39,13 @@
         </header>
 
         <br>
-
+        <!-- Desplegable con categorías de productos  -->
         <main class="container-fluid">
           <section>
             <div class="btn-group">
               <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> Categorias </button>
               <ul class="dropdown-menu" id="dropdown-categories"> 
-                
+              
               </ul>
             </div>
           </section>    
@@ -53,10 +53,53 @@
           <br>
           <br>
           
+        <!-- Cards de productos -->
           <section>
             <div class="container" id="card_product"> </div>
           </section>
         </main>
+
+
+
+        <!-- Modal para el detalle de los productos -->
+         <!-- <div class="modal fade" id="shoppingCardModal" tabindex="-1" aria-labelledby="shoppingCardModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered"> 
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="shoppingCardModalLabel">Carrito de Compras</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-level="close"></button>
+              </div>
+              <div class="modal-body"> 
+               <div id="cardItemsContainer"></div>
+              </div>
+            </div>
+          </div>
+         </div> -->
+
+
+         <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered"> 
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="productDetailModalLabel">Detalles del Producto</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-level="close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <img src="" alt="Imagen del Producto" id="productDetailImage" class="img-fluid">
+                  </div>
+                  <div class="col-md-6">
+                    <h5 id="productDetailTitle"></h5> 
+                    <p id="productDetailDescription"></p>
+                    <p id="productDetailPrice"></p>
+                    <button class="btn  btn-primary" id="addToCartDetailButton">Agregar al Carrito</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
 
 
 

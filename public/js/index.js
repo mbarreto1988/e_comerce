@@ -20,18 +20,72 @@ document.addEventListener('DOMContentLoaded', () => {
                 const productDiv = document.createElement('div');
                 productDiv.className = 'card';
                 productDiv.innerHTML = `
-                    <img src='${product.image}' alt='' class='card-img-top'>
+                    <img src='${product.image}' alt='${product.title}' class='card-img-top'>
                     <div class'card-content'>
                         <h5 class'card-title'> ${product.title} </h5>
                         <a href'#' class='btn btn-primary view-details-btn' data-id='${product.id}'> ver detalle </a>
-                    </div>
-                
+                    </div>              
                 `;
                 card_product.appendChild(productDiv)
+
+                productDiv.querySelector(".view-details-btn").addEventListener("click", (e) => {
+                    e.preventDefault()
+                    showProductDetails(product)
+                }  
+
+                )
             });
         } catch (error) {
             console.error('Error al obtener los productos', error)
         }
+    }
+
+
+// Esta funcion lleva al local storage los productos (LocalStorage es el local storage del usuario)
+    function addToCart(product) {
+        let cart = JSON.parse(localStorage.getItem("shoppingCart")) || [] 
+        if (!cart.some(item => item.id===product.id)) {
+            product.amount=1
+            cart.push(product)
+            localStorage.setItem("shoppingCart",JSON.stringify(cart))
+            console.log(product)
+            return true
+        }
+        return false
+    }
+
+// Toma los productos del Local Storage (LocalStorage es el local storage del usuario)
+    function isProductInCart(productId){
+        const cart = JSON.parse(localStorage.getItem("shoppingCart")) || [] 
+        return cart.some(product => product.id===productId)
+    }
+
+
+
+// Ver de agregar categoria
+    function showProductDetails(product){ 
+        const productDetailModal = new bootstrap.Modal(document.getElementById("productDetailModal"))
+        const productDetailTitle = document.getElementById("productDetailTitle")
+        const productDetailDescrption = document.getElementById("productDetailDescription")
+        const productDetailPrice = document.getElementById("productDetailPrice")
+        const productDetailImage = document.getElementById("productDetailImage")
+        const addToCartDetailButton = document.getElementById("addToCartDetailButton")
+        productDetailTitle.textContent=product.title
+        productDetailDescrption.textContent=product.description
+        productDetailPrice.textContent=`Precio: $${product.price}`
+        productDetailImage.src=product.image
+        addToCartDetailButton.disabled=isProductInCart(product.id)
+        addToCartDetailButton.onclick=() => {
+            if(!addToCartDetailButton.disabled){
+                const added= addToCart(product)
+                if(added){
+                    addToCartDetailButton.disabled=true
+                }
+            }
+        }
+
+        productDetailModal.show()
+
     }
 
 
