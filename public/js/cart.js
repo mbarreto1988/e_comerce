@@ -1,12 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     function loadCartItems() {
         const cartItemsContainer = document.getElementById('cartItemsContainer');
-        let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-    
-        cartItemsContainer.innerHTML = '';
-        
+        let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];    
+        cartItemsContainer.innerHTML = '';    
         if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<p>No hay productos en el carrito.</p>';
+            cartItemsContainer.innerHTML = '<em>No hay productos en el carrito.</em>';
         } else {
             cart.forEach((product, index) => {
                 const productCard = document.createElement('div');
@@ -25,25 +23,40 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <input type="text" class="form-control text-center mx-2 quantity-input" value="${product.amount}" style="width: 50px;">
                                     <button class="btn btn-sm btn-outline-secondary plus-btn">+</button>
                                 </div>
+                                <button class="btn btn-danger delete-btn mt-3">
+                                    <i class="fa-regular fa-trash-can"></i> Eliminar
+                                </button>
                             </div>
                         </div>
                     </div>
                 `;
-                
+
                 const minusBtn = productCard.querySelector('.minus-btn');
                 const plusBtn = productCard.querySelector('.plus-btn');
                 const quantityInput = productCard.querySelector('.quantity-input');
                 const totalPrice = productCard.querySelector('.total-price');
-
-                // Actualizar el precio y localStorage al cambiar la cantidad
+                const deleteBtn = productCard.querySelector('.delete-btn');              
+    
+                
+                function updateMinusButtonState() {
+                    const quantity = parseInt(quantityInput.value);
+                    if (quantity <= 1) {
+                        minusBtn.disabled = true;
+                    } else {
+                        minusBtn.disabled = false;
+                    }
+                }    
+                updateMinusButtonState();
+    
                 function updatePrice() {
                     const quantity = parseInt(quantityInput.value);
                     const total = (product.price * quantity).toFixed(2);
                     totalPrice.textContent = `$${total}`;
                     updateLocalStorage();
-                    updateCartSummary(); // Recalcular el total del carrito
+                    updateCartSummary(); 
+                    updateMinusButtonState();
                 }
-
+    
                 minusBtn.addEventListener('click', () => {
                     let quantity = parseInt(quantityInput.value);
                     if (quantity > 1) {
@@ -51,13 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         quantityInput.value = quantity;
                         product.amount = quantity;
                         updatePrice();
-                    } else {
-                        cart.splice(index, 1);
-                        localStorage.setItem('shoppingCart', JSON.stringify(cart));
-                        loadCartItems();
                     }
                 });
-
+    
                 plusBtn.addEventListener('click', () => {
                     let quantity = parseInt(quantityInput.value);
                     quantity++;
@@ -65,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     product.amount = quantity;
                     updatePrice();
                 });
-
+    
                 quantityInput.addEventListener('input', () => {
                     const quantity = parseInt(quantityInput.value);
                     if (!isNaN(quantity) && quantity > 0) {
@@ -73,23 +82,47 @@ document.addEventListener('DOMContentLoaded', () => {
                         updatePrice();
                     }
                 });
-
+    
                 function updateLocalStorage() {
                     localStorage.setItem('shoppingCart', JSON.stringify(cart));
                 }
+    
+                deleteBtn.addEventListener('click', () => {
+                    Swal.fire({
+                        title: "¿Estás seguro?",
+                        text: "¡No podrás revertir esta acción!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Sí, eliminarlo",
+                        cancelButtonText: "Cancelar"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            cart.splice(index, 1);
+                            localStorage.setItem('shoppingCart', JSON.stringify(cart));
+                            loadCartItems();                
+                            Swal.fire({
+                                title: "¡Eliminado!",
+                                text: "El producto ha sido eliminado del carrito.",
+                                icon: "success",
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        }
+                    });
+                });
                 
                 cartItemsContainer.appendChild(productCard);
-            });
-
-            // Mostrar total y botón de pago
+            });    
             updateCartSummary();
         }
     }
 
+
     function updateCartSummary() {
         const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-        const total = cart.reduce((sum, product) => sum + (product.price * product.amount), 0).toFixed(2);
-        
+        const total = cart.reduce((sum, product) => sum + (product.price * product.amount), 0).toFixed(2);        
         let summaryDiv = document.getElementById('cartSummary');
         if (!summaryDiv) {
             summaryDiv = document.createElement('div');
@@ -98,28 +131,70 @@ document.addEventListener('DOMContentLoaded', () => {
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5>Total: $${total}</h5>
-                    <button id="payButton" class="btn btn-success">Pagar</button>
+                    <div>
+                        <button id="payButton" class="btn btn-success">Finalizar compra</button>
+                        <button id="clearCartButton" class="btn btn-danger">Vaciar Carrito</button>
+                    </div>
                 </div>
             `;
             document.getElementById('cartItemsContainer').appendChild(summaryDiv);
-
-            // Asegúrate de que el evento se añade solo una vez
             document.getElementById('payButton').addEventListener('click', handlePayButtonClick);
+            document.getElementById('clearCartButton').addEventListener('click', handleClearCart);
         } else {
-            summaryDiv.querySelector('h5').textContent = `Total : $${total}`;
+            summaryDiv.querySelector('h5').textContent = `Total: $${total}`;
         }
     }
+
 
     function handlePayButtonClick() {
-        // Asegúrate de que el evento se ejecuta solo una vez
         const payButton = document.getElementById('payButton');
+        const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+        const total = cart.reduce((sum, product) => sum + (product.price * product.amount), 0).toFixed(2);
         payButton.removeEventListener('click', handlePayButtonClick);
-
-        if (confirm('¿Estás seguro de que deseas realizar la compra?')) {
-            localStorage.removeItem('shoppingCart');
-            loadCartItems();
-        }
+        Swal.fire({
+            title: `Desea finalizar la compra Total:$${total}`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, realizar la compra!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: '¡Compra realizada!',
+                    text: 'Tu compra ha sido realizada exitosamente.',
+                    icon: 'success'
+                });
+                localStorage.removeItem('shoppingCart');
+                loadCartItems();
+            }
+        });
     }
+
+    function handleClearCart() {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, vaciar carrito',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem('shoppingCart');
+                loadCartItems();
+                Swal.fire({
+                    title: '¡Carrito Vaciado!',
+                    text: 'Todos los productos han sido eliminados del carrito.',
+                    icon: 'success',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            }
+        });
+    }
+
 
     const shoppingCartModal = document.getElementById('shoppingCartModal');
     shoppingCartModal.addEventListener('shown.bs.modal', () => {

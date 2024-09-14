@@ -83,29 +83,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showProductDetails(product) {
-        if (!product) return;
-
         const productDetailModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
         const productDetailTitle = document.getElementById('productDetailTitle');
         const productDetailDescription = document.getElementById('productDetailDescription');
         const productDetailPrice = document.getElementById('productDetailPrice');
         const productDetailImage = document.getElementById('productDetailImage');
-        const addToCartDetailButton = document.getElementById('addToCartDetailButton');
+        const addToCartDetailButton = document.getElementById('addToCartDetailButton');        
         productDetailTitle.textContent = product.title;
         productDetailDescription.textContent = product.description;
         productDetailPrice.textContent = `Precio: $${product.price}`;
         productDetailImage.src = product.image;
-        addToCartDetailButton.disabled = isProductInCart(product.id);
-
+        addToCartDetailButton.disabled = isProductInCart(product.id);    
         addToCartDetailButton.onclick = () => {
             if (!addToCartDetailButton.disabled) {
                 const added = addToCart(product);
                 if (added) {
                     addToCartDetailButton.disabled = true;
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Producto Agregado al Carrito',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 }
             }
-        };
-
+        };    
         productDetailModal.show();
     }
 
