@@ -1,17 +1,16 @@
-body{
-    font-family: Arial, sans-serif;
+html, body {
     margin: 0;
     padding: 0;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f3f3f3;
+    font-family: Arial, sans-serif;
+    height: 100%;
 }
+
+
 
 .img_logo{
     max-width: 60px;
     max-height: 80px;
-    border: 2px solid red;
+    border: 3px solid rgb(75, 27, 27);
     border-radius: 20px;
     transition:  transform 0.3s ease , box-shadow 0.3s ease;
 }
@@ -19,11 +18,12 @@ body{
 
 .img_logo:hover{
     transform: scale(1.1);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-    border-color: blue;
+    box-shadow: 0 4px 20px rgb(0, 0, 0);
+    border-color: rgb(19, 88, 94);
 }
 
 /* _____________________ */
+
 
 .container {
     display: flex;
@@ -92,6 +92,19 @@ body{
 }  
 
 
+.footer_container {
+    background-color: rgb(59, 49, 49);
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;    
+    font-size: 20px;
+    bottom: 0;
+}
+
+
 @media (max-width: 900px) {
     .card {
         flex: 1 1 calc(33.33% - 10px);
@@ -110,10 +123,3 @@ body{
     }
 }
 
-
-
-______________________________________________
-.alert {
-    margin-top: 20px;
-    text-align: center;
-}

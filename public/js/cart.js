@@ -1,4 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
+    class Alerts{
+        static deleteProductConfirm(){
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "¡No podrás revertir esta acción!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, eliminarlo",
+                cancelButtonText: "Cancelar"
+            });
+        }
+
+        static deleteProduct(){
+            Swal.fire({
+                title: "¡Eliminado!",
+                text: "El producto ha sido eliminado del carrito.",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+            });
+        }
+    }
+
+
     function loadCartItems() {
         const cartItemsContainer = document.getElementById('cartItemsContainer');
         let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];    
@@ -101,14 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (result.isConfirmed) {
                             cart.splice(index, 1);
                             localStorage.setItem('shoppingCart', JSON.stringify(cart));
-                            loadCartItems();                
-                            Swal.fire({
-                                title: "¡Eliminado!",
-                                text: "El producto ha sido eliminado del carrito.",
-                                icon: "success",
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
+                            loadCartItems();  
+                            Alerts.deleteProduct()  
                         }
                     });
                 });
@@ -151,25 +171,32 @@ document.addEventListener('DOMContentLoaded', () => {
         const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
         const total = cart.reduce((sum, product) => sum + (product.price * product.amount), 0).toFixed(2);
         payButton.removeEventListener('click', handlePayButtonClick);
+        
+        // Mostrar la alerta de confirmación
         Swal.fire({
             title: `Desea finalizar la compra Total:$${total}`,
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, realizar la compra!'
+            confirmButtonText: 'Sí, ir a login!'
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire({
-                    title: '¡Compra realizada!',
-                    text: 'Tu compra ha sido realizada exitosamente.',
-                    icon: 'success'
+                    title: 'Redirigiendo...',
+                    text: 'Será redirigido a la página de inicio de sesión.',
+                    icon: 'info',
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = 'login.html';
                 });
                 localStorage.removeItem('shoppingCart');
                 loadCartItems();
             }
         });
     }
+    
 
     function handleClearCart() {
         Swal.fire({

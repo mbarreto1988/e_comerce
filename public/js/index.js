@@ -4,6 +4,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const category = urlParams.get('category');
 
 
+    class Alerts{
+        static paySuccessful(message){
+            Swal.fire({
+                icon: 'success',
+                title: '¡Compra realizada!',
+                text: message,
+                timer: 3000,
+                showConfirmButton: false
+            });
+        }
+
+        static addProduct(){
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Producto Agregado al Carrito',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+    }
+
+    
+    if (localStorage.getItem('showPayAlert') === 'true') {
+        Alerts.paySuccessful('Gracias por tu compra');
+        localStorage.removeItem('showPayAlert'); 
+    }
+
+
     async function fetchProducts(category = '') {
         try {
             let url = `${API_BASE_URL}/products`;
@@ -62,13 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const added = addToCart(product);
                 if (added) {
                     addToCartDetailButton.disabled = true;
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Producto Agregado al Carrito',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
+                    Alerts.addProduct()
                 }
             }
         };    
