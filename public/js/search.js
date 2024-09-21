@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardProduct = document.getElementById('card_product');
 
 
-    // esta ya esta
-    async function fetchProducts() {
+    
+    async function fetchProducts() {  // esdta funcion trae todos los productos de la api
         try {
             const response = await fetch(`${API_BASE_URL}/products`);
             if (!response.ok) {
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function showProductDetails(product) {
+    function showProductDetails(product) { // es la funcion que habre el modal con el detalle del producto
         const productDetailModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
         const productDetailTitle = document.getElementById('productDetailTitle');
         const productDetailDescription = document.getElementById('productDetailDescription');
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         productDetailModal.show();
     }
 
-    function isProductInCart(productId) {
+    function isProductInCart(productId) {  ///la funcion que busca el producto en el lc y retorna true o false
         const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
         return cart.some(product => product.id === productId);
     }
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (existingProductIndex > -1) {
             cart[existingProductIndex].amount += 1;
         } else {
-            product.amount = 1;  // Agrega el campo "amount" con valor 1
+            product.amount = 1;
             cart.push(product);
         }
 

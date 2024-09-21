@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const deleteBtn = productCard.querySelector('.delete-btn');              
     
                 
-                function updateMinusButtonState() {
+                function updateMinusButtonState() { //esta funcion hace que cuando el monto sea igual a 1 me deshabilite el boton de "-"
                     const quantity = parseInt(quantityInput.value);
                     if (quantity <= 1) {
                         minusBtn.disabled = true;
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }    
                 updateMinusButtonState();
     
-                function updatePrice() {
+                function updatePrice() { //esta funcion es la que calcula el totral de todos los productos
                     const quantity = parseInt(quantityInput.value);
                     const total = (product.price * quantity).toFixed(2);
                     totalPrice.textContent = `$${total}`;
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateMinusButtonState();
                 }
     
-                minusBtn.addEventListener('click', () => {
+                minusBtn.addEventListener('click', () => { //este evento hace que disminuya nla cantidad
                     let quantity = parseInt(quantityInput.value);
                     if (quantity > 1) {
                         quantity--;
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
     
-                plusBtn.addEventListener('click', () => {
+                plusBtn.addEventListener('click', () => { //este evento hace que aumente la cantidad del producto
                     let quantity = parseInt(quantityInput.value);
                     quantity++;
                     quantityInput.value = quantity;
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     updatePrice();
                 });
     
-                quantityInput.addEventListener('input', () => {
+                quantityInput.addEventListener('input', () => { //este evento hace que evite un error
                     const quantity = parseInt(quantityInput.value);
                     if (!isNaN(quantity) && quantity > 0) {
                         product.amount = quantity;
@@ -109,11 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
     
-                function updateLocalStorage() {
+                function updateLocalStorage() { //actualizamos el LS
                     localStorage.setItem('shoppingCart', JSON.stringify(cart));
                 }
     
-                deleteBtn.addEventListener('click', () => {
+                deleteBtn.addEventListener('click', () => { //este evento elimina el iten del carrito
                     Swal.fire({
                         title: "¿Estás seguro?",
                         text: "¡No podrás revertir esta acción!",
@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }).then(() => {
                     window.location.href = 'login.html';
                 });
-                localStorage.removeItem('shoppingCart');
+                localStorage.removeItem('shoppingCart'); //pasar esta fruncvion para despues que se concrete el logueo
                 loadCartItems();
             }
         });

@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     window.location.href = href;
                     hideLoader();
-                }, 1000);
+                }, 2000);
             }
         });
     });

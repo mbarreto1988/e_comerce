@@ -39,5 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error('Error al cargar las categorías:', error);
         }
     }
+
+    
     loadCategories();
 });

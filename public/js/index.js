@@ -27,13 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     
-    if (localStorage.getItem('showPayAlert') === 'true') {
+    if (localStorage.getItem('showPayAlert') === 'true') {  //Verifica si existe la clave showPayAlert en el localStorage, si existe lanza la alerta de compra exitos y borra del LS la misma si no existe sigue de largo
         Alerts.paySuccessful('Gracias por tu compra');
         localStorage.removeItem('showPayAlert'); 
     }
 
 
-    async function fetchProducts(category = '') {
+    async function fetchProducts(category = '') {  //trae los elementos de la api y crea una tarjeta con cada uno y el total de todos  lo invecta en nuestro div principal "card_product"
         try {
             let url = `${API_BASE_URL}/products`;
             if (category) {
@@ -68,13 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    function isProductInCart(productId) {
+    function isProductInCart(productId) { //Pasandole el id del producto lo busca en el LS y este retorn true o false
         const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
         return cart.some(product => product.id === productId);
     }
 
 
-    function showProductDetails(product) {
+    function showProductDetails(product) {  // Abre el modal del detalle de producto con la funcionalidad de si existe en el LS bloquea el boton de agregar al carrito, caso contrario lo habilita
         const productDetailModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
         const productDetailTitle = document.getElementById('productDetailTitle');
         const productDetailDescription = document.getElementById('productDetailDescription');
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    function addToCart(product) { 
+    function addToCart(product) { // esta funcion es la que agrega el producto en el LS, siempre y cuando el mismop no exista.
         let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
         if (!cart.some(item => item.id === product.id)) {
             product.amount = 1;
@@ -111,6 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     }
 
-
+    
     fetchProducts(category);
 });
