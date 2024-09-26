@@ -11,12 +11,19 @@
     <link rel="stylesheet" href="./public/css/loader.css">
     <link rel="icon" href="./public/img/logo.jpeg">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            padding-top: 56px; /* ue esto coincida con la altura d navbar */
+        }
+    </style>
 </head>
 
 <body>
     <!-- header hecho con boostrap -->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/"><img class="img_logo" src="./public/img/logo.jpeg" alt="logo"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +35,7 @@
                     </ul>
                     <div class="d-flex align-items-center ms-auto">
                         <form class="d-flex me-2" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
                         </form>
                         <button class="btn btn-outline-primary" href="#" data-bs-toggle="modal" data-bs-target="#shoppingCartModal" onclick="loadShoppingCart()">
                             <i class="fa-solid fa-cart-shopping"></i>
@@ -50,18 +57,63 @@
             <div class="container" id="card_product"> </div>
         </section>
     </main>
+    
+CARROUSEL 
+     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="1000"></div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="public/img/imgcarrousel1.jpg" class="d-block w-100" alt="Ropa 1">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Bienvenido a Store for Coders</h5>
+                <p>Una tienda ficticia diseñada por programadores novatos</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="public/img/imgcarrousel1.jpg" class="d-block w-100" alt="Ropa 2">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Bienvenido a Store for Coders</h5>
+                <p>Una tienda ficticia diseñada por programadores novatos</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="ruta/a/tu/imagen3.jpg" class="d-block w-100" alt="Ropa 3">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Bienvenido a Store for Coders</h5>
+                <p>Una tienda ficticia diseñada por programadores novatos</p>
+            </div>
+        </div>
+
+</div>
     <br>
     <br>
     <br>
     <br>
     <br>
     <br>
-    <footer class="fixed-bottom">
+    <!-- <footer class="footer_container">
         <div class="footer_container">
             <p class="footer_parrafo">Compra Aca S.A, Todos los derechos reservados</p>
         </div>
+    </footer> -->
+    <footer class="footer_container">
+        <div class="footer-content">
+            <h2 class="footer-title">Store for Coders</h2>
+            <div class="footer-links">
+                <p>Copyright © 2024 Store for Coders. All rights reserved.</p>
+                <p>
+                    <a href="#">Privacy Policy</a> | 
+                    <a href="#">Terms Of Use</a> | 
+                    <a href="#">Sitemap</a>
+                </p>
+            </div>
+            <div class="social-icons">
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com" target="_blank"><i class="fab fa-x"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
     </footer>
-    
 
     <!-- Modal para el carrito de compras -->
     <div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel"

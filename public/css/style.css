@@ -3,9 +3,8 @@ html, body {
     padding: 0;
     font-family: Arial, sans-serif;
     height: 100%;
+    background-color: red;
 }
-
-
 
 .img_logo{
     max-width: 60px;
@@ -22,8 +21,9 @@ html, body {
     border-color: rgb(19, 88, 94);
 }
 
-/* _____________________ */
-
+/* ==================================================
+== CARD ===
+===================================================*/
 
 .container {
     display: flex;
@@ -48,6 +48,7 @@ html, body {
     transition: transform 0.3s ease;
     max-width: 280px;
     margin: 10px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .card img {
@@ -89,10 +90,25 @@ html, body {
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-}  
+} 
 
+#productDetailTitle {
+    font-family: 'Montserrat', sans-serif;
+}
 
-.footer_container {
+#productDetailDescription {
+    font-family: 'Montserrat', sans-serif;
+}
+
+#productDetailPrice {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ==================================================
+== FOOTER ===
+===================================================*/
+
+/* .footer_container {
     background-color: rgb(59, 49, 49);
     width: 100%;
     height: 100px;
@@ -102,8 +118,56 @@ html, body {
     color: white;    
     font-size: 20px;
     bottom: 0;
+} */
+
+.footer_container {
+    background-color: rgb(59, 49, 49);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    margin: 10px 0;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.social-icons {
+    margin-top: 10px;
+}
+
+.social-icons a {
+    color: white;
+    margin: 0 10px;
+    font-size: 20px;
+}
+
+/* ==================================================
+== RESPONSIVE ===
+===================================================*/
 
 @media (max-width: 900px) {
     .card {

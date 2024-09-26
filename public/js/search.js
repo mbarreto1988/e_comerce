@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     
-    async function fetchProducts() {  // esdta funcion trae todos los productos de la api
+    async function fetchProducts() {  // esta funcion trae todos los productos de la api
         try {
             const response = await fetch(`${API_BASE_URL}/products`);
             if (!response.ok) {
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function showProductDetails(product) { // es la funcion que habre el modal con el detalle del producto
+    function showProductDetails(product) { // es la funcion que abre el modal con el detalle del producto
         const productDetailModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
         const productDetailTitle = document.getElementById('productDetailTitle');
         const productDetailDescription = document.getElementById('productDetailDescription');
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         productDetailModal.show();
     }
 
-    function isProductInCart(productId) {  ///la funcion que busca el producto en el lc y retorna true o false
+    function isProductInCart(productId) {  //la funcion que busca el producto en el LocalStorage y retorna true o false
         const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
         return cart.some(product => product.id === productId);
     }
