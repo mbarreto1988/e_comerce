@@ -56,15 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 `;
-
                 const minusBtn = productCard.querySelector('.minus-btn');
                 const plusBtn = productCard.querySelector('.plus-btn');
                 const quantityInput = productCard.querySelector('.quantity-input');
                 const totalPrice = productCard.querySelector('.total-price');
-                const deleteBtn = productCard.querySelector('.delete-btn');              
-    
+                const deleteBtn = productCard.querySelector('.delete-btn');   
                 
-                function updateMinusButtonState() { //esta funcion hace que cuando el monto sea igual a 1 me deshabilite el boton de "-"
+                function updateMinusButtonState() {
                     const quantity = parseInt(quantityInput.value);
                     if (quantity <= 1) {
                         minusBtn.disabled = true;
@@ -74,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }    
                 updateMinusButtonState();
     
-                function updatePrice() { //esta funcion es la que calcula el totral de todos los productos
+                function updatePrice() {
                     const quantity = parseInt(quantityInput.value);
                     const total = (product.price * quantity).toFixed(2);
                     totalPrice.textContent = `$${total}`;
@@ -83,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateMinusButtonState();
                 }
     
-                minusBtn.addEventListener('click', () => { //este evento hace que disminuya nla cantidad
+                minusBtn.addEventListener('click', () => { 
                     let quantity = parseInt(quantityInput.value);
                     if (quantity > 1) {
                         quantity--;
@@ -93,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
     
-                plusBtn.addEventListener('click', () => { //este evento hace que aumente la cantidad del producto
+                plusBtn.addEventListener('click', () => { 
                     let quantity = parseInt(quantityInput.value);
                     quantity++;
                     quantityInput.value = quantity;
@@ -101,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     updatePrice();
                 });
     
-                quantityInput.addEventListener('input', () => { //este evento hace que evite un error
+                quantityInput.addEventListener('input', () => { 
                     const quantity = parseInt(quantityInput.value);
                     if (!isNaN(quantity) && quantity > 0) {
                         product.amount = quantity;
@@ -109,11 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
     
-                function updateLocalStorage() { //actualizamos el LS
+                function updateLocalStorage() {
                     localStorage.setItem('shoppingCart', JSON.stringify(cart));
                 }
     
-                deleteBtn.addEventListener('click', () => { //este evento elimina el iten del carrito
+                deleteBtn.addEventListener('click', () => { 
                     Swal.fire({
                         title: "¿Estás seguro?",
                         text: "¡No podrás revertir esta acción!",
@@ -132,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                 });
-                
+
                 cartItemsContainer.appendChild(productCard);
             });    
             updateCartSummary();
@@ -170,9 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const payButton = document.getElementById('payButton');
         const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
         const total = cart.reduce((sum, product) => sum + (product.price * product.amount), 0).toFixed(2);
-        payButton.removeEventListener('click', handlePayButtonClick);
-        
-        // Mostrar la alerta de confirmación
+        payButton.removeEventListener('click', handlePayButtonClick);        
         Swal.fire({
             title: `Desea finalizar la compra Total:$${total}`,
             icon: 'question',
@@ -191,7 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }).then(() => {
                     window.location.href = 'login.html';
                 });
-                localStorage.removeItem('shoppingCart'); //pasar esta fruncvion para despues que se concrete el logueo
                 loadCartItems();
             }
         });

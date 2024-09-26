@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+    
 
     const API_BASE_URL = 'https://fakestoreapi.com';
     const loginButton = document.getElementById('loginButton');
@@ -47,8 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (username === '' || password === '') {
             Alerts.showError('Por favor, completa todos los campos.')
             return;
-        }        
-
+        }
         fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
             headers: {

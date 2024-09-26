@@ -3,9 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.querySelector('input[type="search"]');
     const cardProduct = document.getElementById('card_product');
 
-
     
-    async function fetchProducts() {  // esdta funcion trae todos los productos de la api
+    async function fetchProducts() {
         try {
             const response = await fetch(`${API_BASE_URL}/products`);
             if (!response.ok) {
@@ -55,9 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
                 cardProduct.appendChild(productDiv);
-            });
-    
-            // Añadir eventos a los botones de "Ver Detalles"
+            });    
             document.querySelectorAll('.view-details-btn').forEach(button => {
                 button.addEventListener('click', async (e) => {
                     const productId = e.target.dataset.id;
@@ -82,7 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function showProductDetails(product) { // es la funcion que habre el modal con el detalle del producto
+
+    function showProductDetails(product) {
         const productDetailModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
         const productDetailTitle = document.getElementById('productDetailTitle');
         const productDetailDescription = document.getElementById('productDetailDescription');
@@ -112,30 +110,28 @@ document.addEventListener('DOMContentLoaded', () => {
         productDetailModal.show();
     }
 
-    function isProductInCart(productId) {  ///la funcion que busca el producto en el lc y retorna true o false
+
+    function isProductInCart(productId) { 
         const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
         return cart.some(product => product.id === productId);
     }
 
+
     function addToCart(product) {
         let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
         const existingProductIndex = cart.findIndex(item => item.id === product.id);
-
         if (existingProductIndex > -1) {
             cart[existingProductIndex].amount += 1;
         } else {
             product.amount = 1;
             cart.push(product);
         }
-
         localStorage.setItem('shoppingCart', JSON.stringify(cart));
         console.log('Producto agregado al carrito:', product);
         return true;
     }
 
 
-
-    // esta ya esta
     async function handleSearch() {
         const query = searchInput.value.toLowerCase();
         const products = await fetchProducts();
@@ -144,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
         displayProducts(filteredProducts);
     }
+    
 
     searchInput.addEventListener('input', handleSearch);
 });
