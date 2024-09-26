@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('showPayAlert') === 'true') {  //Verifica si existe la clave showPayAlert en el localStorage, si existe lanza la alerta de compra exitos y borra del LS la misma si no existe sigue de largo
         Alerts.paySuccessful('Gracias por tu compra');
         localStorage.removeItem('showPayAlert'); 
+        localStorage.removeItem('shoppingCart');
     }
 
 

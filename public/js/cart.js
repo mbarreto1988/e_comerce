@@ -191,7 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }).then(() => {
                     window.location.href = 'login.html';
                 });
-                localStorage.removeItem('shoppingCart'); //pasar esta fruncvion para despues que se concrete el logueo
                 loadCartItems();
             }
         });
