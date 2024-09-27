@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    
+
     if (localStorage.getItem('showPayAlert') === 'true') { 
         Alerts.paySuccessful('Gracias por tu compra');
         localStorage.removeItem('showPayAlert'); 
@@ -57,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="#" class="btn btn-primary view-details-btn" data-id="${product.id}">Ver Detalles</a>
                     </div>`;
                 card_product.appendChild(productDiv);
-
                 productDiv.querySelector('.view-details-btn').addEventListener('click', (e) => {
                     e.preventDefault();
                     showProductDetails(product);
@@ -112,6 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     }
 
-    
+
     fetchProducts(category);
 });

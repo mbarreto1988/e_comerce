@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 text: message
             });
         }
-        
+
         static successful(message){
             Swal.fire({
                 icon: 'success',
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 showConfirmButton: false
             });
         }
-        
+
         static errorAuth(message){
             Swal.fire({
                 icon: 'error',
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-    
+
 
     const API_BASE_URL = 'https://fakestoreapi.com';
     const loginButton = document.getElementById('loginButton');
@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();        
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-
         if (username === '' || password === '') {
             Alerts.showError('Por favor, completa todos los campos.')
             return;

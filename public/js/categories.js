@@ -40,6 +40,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    
+
     loadCategories();
 });
