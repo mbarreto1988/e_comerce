@@ -27,13 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     
-    if (localStorage.getItem('showPayAlert') === 'true') {  //Verifica si existe la clave showPayAlert en el localStorage, si existe lanza la alerta de compra exitos y borra del LS la misma si no existe sigue de largo
+    if (localStorage.getItem('showPayAlert') === 'true') {  // Verifica si existe la clave showPayAlert en el localStorage, si existe lanza la alerta de compra exitos y borra del LocalStorage la misma si no existe sigue de largo
         Alerts.paySuccessful('Gracias por tu compra');
         localStorage.removeItem('showPayAlert'); 
     }
 
 
-    async function fetchProducts(category = '') {  //trae los elementos de la api y crea una tarjeta con cada uno y el total de todos  lo invecta en nuestro div principal "card_product"
+    async function fetchProducts(category = '') {  // Trae los elementos de la api y crea una tarjeta con cada uno y el total de todos lo invecta en nuestro div principal "card_product"
         try {
             let url = `${API_BASE_URL}/products`;
             if (category) {
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    function addToCart(product) { // esta funcion es la que agrega el producto en el LS, siempre y cuando el mismop no exista.
+    function addToCart(product) { // esta funcion es la que agrega el producto en el LocalStorage, siempre y cuando el mismo no exista.
         let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
         if (!cart.some(item => item.id === product.id)) {
             product.amount = 1;
